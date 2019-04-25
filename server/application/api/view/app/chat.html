@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>法保网在线客服</title>
+  <script type="text/javascript" src="https://js.cdn.aliyun.dcloud.net.cn/dev/uni-app/uni.webview.1.5.0.js"></script>
+  <style>
+    .close_btn{
+      display: none;
+      position: absolute;
+      top: 0;
+      right: 0;
+      z-index: 2147483648;
+      height: 52px;
+      line-height: 52px;
+      width: 100px;
+      color: #ffffff;
+      text-align: center;
+      background: #007aff;
+    }
+    #MEIQIA-PANEL-HOLDER{
+      z-index: 9 !important;
+    }
+  </style>
+</head>
+<body>
+<div id="close_btn" class="close_btn" onclick="goBack()">关闭</div>
+<script type='text/javascript'>
+  (function(m, ei, q, i, a, j, s) {
+    m[i] = m[i] || function() {
+      (m[i].a = m[i].a || []).push(arguments)
+    };
+    j = ei.createElement(q),
+      s = ei.getElementsByTagName(q)[0];
+    j.async = true;
+    j.charset = 'UTF-8';
+    j.src = 'https://static.meiqia.com/dist/meiqia.js?_=t';
+    s.parentNode.insertBefore(j, s);
+  })(window, document, 'script', '_MEIQIA');
+  _MEIQIA('entId', 142017);
+  _MEIQIA('clientId', "{$user_id}");
+  _MEIQIA('allSet', function(){
+    _MEIQIA('showPanel');
+    document.getElementById('close_btn').style.display = 'block';
+  });
+  // 传递顾客信息
+  _MEIQIA('metadata', {
+      name: "{$name}",
+      gender: "{$gender}",
+      vip: "{$vip}"
+  });
+
+  function goBack() {
+    uni.switchTab({
+      url: "{$url}"
+    });
+  }
+</script>
+</body>
+</html>

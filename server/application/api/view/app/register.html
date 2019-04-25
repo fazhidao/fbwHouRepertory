@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link rel="icon" href="favicon.ico">
+  <title>用户注册</title>
+  <style>
+    body{
+      background: #ffffff;
+    }
+    .absolute_center{
+      display: block;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+    .register_logo{
+      display: block;
+      width: 130px;
+      height: 130px;
+      margin: 0 auto 40px auto;
+    }
+    .register_back_btn{
+      position: absolute;
+      top: 30px;
+      left: 0;
+      width: 70px;
+      text-align: center;
+      border-right: 1px solid #c8af6f;
+      color: #c8af6f;
+      font-size: 15px;
+      line-height: 35px;
+    }
+    .register_content_box{
+      padding: 0 25px;
+    }
+    .register_title{
+      font-size: 15px;
+      margin-bottom: 15px;
+      letter-spacing: 1px;
+    }
+    .register_row{
+      display: flex;
+      font-size: 15px;
+      height: 55px;
+    }
+    .register_row_left{
+      position: relative;
+      width: 75px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+    .register_row_left .borderX{
+      position: absolute;
+      top: 5px;
+      bottom: 5px;
+      right: 0;
+    }
+    .register_row_left img{
+      width: 30px;
+      height: 30px;
+    }
+    .register_row_right{
+      flex: 1;
+      position: relative;
+    }
+    .register_row_input{
+      padding-left: 25px;
+      height: 55px;
+    }
+    .register_row_input_sms{
+      width: 120px;
+    }
+
+    .sms_btn{
+      left: auto;
+      right: 0;
+      width: 85px;
+      height: 25px;
+      line-height: 25px;
+      border-radius: 25px;
+      font-size: 12px;
+      border: 1px solid #c8af6f;
+      color: #c8af6f;
+      text-align: center;
+    }
+    .sms_btn:active{
+      background: #F3F3F3;
+    }
+
+    .register_btn{
+      margin: 20px auto 0 auto;
+    }
+    .main_btn{
+      width: 270px;
+      height: 40px;
+      line-height: 40px;
+      border-radius: 40px;
+      background: #ccb17e;
+      box-shadow: 0 0 20px #ccb17e;
+      text-align: center;
+      color: #FFFFFF;
+      font-size: 20px;
+      letter-spacing: 6px;
+    }
+    .main_btn:active{
+      background: #a58446;
+    }
+    .borderY{
+      height: 1px;
+      background: #CECECE;
+      transform: scaleY(0.5);
+      transform-origin: 0 100%;
+    }
+    .borderX{
+      width: 1px;
+      background: #CECECE;
+      transform: scaleX(0.5);
+    }
+    input{
+      border: none;
+      outline: none;
+    }
+    .agreement_row{
+      text-align: center;
+      margin: 20px 0;
+    }
+    .agreement_text{
+      font-size: 14px;
+      text-align: center;
+      color: #19B3FF;
+    }
+  </style>
+</head>
+<body>
+<div style="height: 60px;"></div>
+<image class="register_logo" src="/static/logo.png" mode=""></image>
+
+<div class="register_content_box">
+  <div class="register_title">请输入手机号并获取短信验证码</div>
+  <div class="borderY"></div>
+  <div class="register_row">
+    <div class="register_row_left">
+      <text>+86</text>
+      <div class="borderX"></div>
+    </div>
+    <div class="register_row_right">
+      <input id="phone" class="register_row_input" type="number" placeholder="您的手机号"></input>
+    </div>
+  </div>
+  <div class="borderY"></div>
+  <div class="register_row">
+    <div class="register_row_left">
+      <image src="/static/icons/sms_code.png" class="absolute_center"></image>
+      <div class="borderX"></div>
+    </div>
+    <div class="register_row_right">
+      <input id="code" class="register_row_input register_row_input_sms" type="number" placeholder="短信验证码"></input>
+      <div id="sms_btn" class="sms_btn absolute_center" onclick="sendSms()">获取验证码</div>
+    </div>
+  </div>
+  <div class="borderY"></div>
+  <div class="register_row">
+    <div class="register_row_left">
+      <image src="/static/icons/password.png" class="absolute_center"></image>
+      <div class="borderX"></div>
+    </div>
+    <div class="register_row_right">
+      <input id="password" class="register_row_input" type="text" placeholder="设置登录密码"></input>
+    </div>
+  </div>
+  <div class="borderY"></div>
+
+  <div class="agreement_row">
+    <input id="checkbox" type="checkbox">
+    <label for="checkbox" class="agreement_text" onclick="goAgreement()">《法保网用户注册协议》</label>
+  </div>
+
+  <div class="main_btn register_btn" onclick="submitRegister()">
+    注册
+  </div>
+</div>
+
+<script>
+  var tick_clock = 60;
+  window.onload = function () {
+    var sessionStorage_phone = sessionStorage.getItem('phone');
+    var sessionStorage_code = sessionStorage.getItem('code');
+    var sessionStorage_password = sessionStorage.getItem('password');
+    document.querySelector('#phone').value = sessionStorage_phone || '';
+    document.querySelector('#code').value = sessionStorage_code || '';
+    document.querySelector('#password').value = sessionStorage_password || '';
+  }
+  function sendSms() {
+    if(document.querySelector('#phone').value == ''){
+      alert('请输入手机号');return 0;
+    }
+    if(tick_clock < 60){
+      return 0;
+    }
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://116.62.208.170/index.php/api/SMS/getCode', true);
+    let data_str = 'phone='+document.querySelector('#phone').value;
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState == 4){
+        if(xhr.status == 200 || xhr.status == 304){
+          tick();
+        }
+      }
+    }
+    xhr.send(data_str);
+  }
+  function tick() {
+    if(tick_clock > 0) {
+      document.querySelector('#sms_btn').innerText = '已发送('+tick_clock+'s)';
+      tick_clock --;
+      setTimeout(function(){
+        tick();
+      },1000)
+    }else{
+      document.querySelector('#sms_btn').innerText = '重新发送';
+      tick_clock = 60;
+    }
+  }
+  function goAgreement() {
+    sessionStorage.setItem('phone',document.querySelector('#phone').value);
+    sessionStorage.setItem('code',document.querySelector('#code').value);
+    sessionStorage.setItem('password',document.querySelector('#password').value);
+    window.location.href = 'http://fzd.qipanxinxi.com/index.php/api/app/resgiterAgreement'
+  }
+  function submitRegister() {
+    if(document.querySelector('#checkbox').checked == false){
+      alert('请输同意注册协议');return 0;
+    }
+    if(document.querySelector('#phone').value == ''){
+      alert('请输入手机号');return 0;
+    }
+    if(document.querySelector('#code').value == ''){
+      alert('请输入验证码');return 0;
+    }
+    if(document.querySelector('#password').value == ''){
+      alert('请输入登录密码');return 0;
+    }
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', 'http://116.62.208.170/index.php/api/app/register', true);
+    let phone = document.querySelector('#phone').value;
+    let code = document.querySelector('#code').value;
+    let password = document.querySelector('#password').value;
+    let data_str = 'phone='+phone+'&code='+code+'&password='+password+'&agency_id={$agency_id}';
+    xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xhr.onreadystatechange = function() {
+      if(xhr.readyState == 4){
+        if(xhr.status == 200 || xhr.status == 304){
+          let data = JSON.parse(xhr.responseText);
+          if(data.status == 1) {
+            alert('注册成功');
+            window.location.href = 'https://a.app.qq.com/o/simple.jsp?pkgname=com.lawprotect';
+          }else{
+            alert(data.data);
+          }
+        }else{
+          alert('服务器错误');
+        }
+      }
+    }
+    xhr.send(data_str);
+  }
+</script>
+</body>
+</html>

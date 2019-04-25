@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>文章详情</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <style>
+    p{
+      text-align: justify;
+      /*text-indent: 30px !important;*/
+      /*font-size: 15px !important;*/
+    }
+    img{
+      display: block !important;
+      max-width: 100% !important;
+      margin: 0 auto;
+    }
+    .title{
+      font-size: 20px;
+      color: #000000;
+    }
+    .sub_title{
+      display: flex;
+      justify-content: space-between;
+      margin: 10px 0;
+    }
+    .download_tip{
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      background: rgba(0,0,0,0.7);
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      color: #ffffff;
+      justify-content: flex-start;
+      cursor: pointer;
+    }
+    .download_tip img{
+      width: 40px;
+      height: 40px;
+      border-radius: 4px;
+      display: block;
+      margin: 0 20px 0 10px;
+    }
+  </style>
+</head>
+<body>
+  <div style="padding: 10px;">
+    <div class="title">{$title}</div>
+    <div class="sub_title">
+      <text style="color: #8b82b3;">法保网</text>
+      <text style="color: #999999;">{$create_time}</text>
+    </div>
+    {$content}
+
+    {if condition="(!$inapp)"}
+    <a class="download_tip" href="https://a.app.qq.com/o/simple.jsp?pkgname=com.lawprotect">
+      <img src="/static/logo.png" alt="">
+      <div>点击下载法保网APP，查看更多法律文章。</div>
+    </a>
+    {/if}
+  </div>
+</body>
+</html>

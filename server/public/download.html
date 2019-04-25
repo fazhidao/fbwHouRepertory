@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>法保网APP下载</title>
+    <style>
+    #tip1,#tip2{
+        display: none;
+        text-align: center;
+        color: #999999;
+        font-size: 18px;
+        margin: 100px 60px;
+	text-shadow: 1px 1px 1px #ffffff;
+    }
+    </style>
+</head>
+<body>
+    
+<div id="tip1">微信中无法直接下载应用，请点击右上角，然后选择在浏览器中打开。</div>
+<div id="tip2">抱歉，当前手机暂不支持本应用。</div>
+
+<script>
+window.onload = function () {
+        var u = navigator.userAgent;
+        if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+            //安卓手机
+            window.location.href = "https://fir.im/4vn9";
+        } else if (u.indexOf('iPhone') > -1) {
+            //苹果手机
+            window.location.href = "https://itunes.apple.com/cn/app/id1453634358";
+        }else{
+            document.getElementById('tip2').style.display = 'block';
+        }
+}
+</script>
+</body>
+</html>
